@@ -1,12 +1,15 @@
 <?php
 
-	include 'inc.twig.php';//
+	include 'inc.twig.php';
 
-	$template_index = $twig->loadTemplate('index.tpl');//
+	$template_index = $twig->loadTemplate('index.tpl');
 
 	$n_jours_previsions = 3;
 
-	$ville = "Limoges"; 
+	$ville = "Limoges";
+
+    // Création d'un autre variable afin de récupérer TOUTES ls informations de la ville et non juste le nom
+    $ville2 = "Limoges";
 
 	//~ Clé API
 	//~ Si besoin, vous pouvez générer votre propre clé d'API gratuitement, en créant 
@@ -20,6 +23,7 @@
 	$_data_array = json_decode($data_contenu, true);
 
 	$_ville = $_data_array['city']['name'];
+    $_ville2 = $_data_array['city'];
 	$_journees_meteo = $_data_array['list'];
 
 	for ($i = 0; $i < count($_journees_meteo); $i++) {
@@ -30,7 +34,8 @@
 
 	echo $template_index->render(array(
 		'_journees_meteo'	=> $_journees_meteo,
-		'_ville'			=> $_ville,//
+		'_ville'			=> $_ville,
+        '_ville2'           => $_ville2,
 		'n_jours_previsions'=> $n_jours_previsions
 	));
 
